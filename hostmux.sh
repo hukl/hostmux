@@ -1,13 +1,21 @@
 #!/bin/sh
 
+# Usage: ./hostmux host_a host_b host_c …
+
 # Keybinding suggestions for .tmux.conf:
 # bind-key a set-window-option synchronize-panes
 # bind-key X kill-session
 
+
+# Settings
 SESSION=bfc_hosts
+LAYOUT=even-vertical
+
+
+# The actual script
+
 NUMBER_OF_HOSTS=$#
 
-                                                                                                                                                                                                                                                                                                                            
 # Initialize Session
 tmux -2 new-session -d -s $SESSION
 
@@ -34,7 +42,7 @@ PANE_MAX=$(($NUMBER_OF_HOSTS-1))
 
 while [ $PANE_INDEX -le $PANE_MAX ]
 do
-  tmux send-keys -t $PANE_INDEX "ssh $1" C-m 
+  tmux send-keys -t $PANE_INDEX "ssh $1" C-m
 
   shift
   PANE_INDEX=$(($PANE_INDEX+1))
