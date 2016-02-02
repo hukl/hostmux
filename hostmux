@@ -27,7 +27,7 @@ LOOP_INDEX=1
 while [ $LOOP_INDEX -lt $NUMBER_OF_HOSTS ]
 do
   tmux split-window -h -d
-  tmux select-layout even-vertical
+  tmux select-layout $LAYOUT
 
   LOOP_INDEX=$(($LOOP_INDEX+1))
 done
