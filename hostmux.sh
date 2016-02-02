@@ -1,5 +1,8 @@
 #!/bin/sh
 
+# Keybinding suggestions:
+# bind-key a set-window-option synchronize-panes
+# bind-key X kill-session
 
 SESSION=bfc_hosts
 NUMBER_OF_HOSTS=$#
