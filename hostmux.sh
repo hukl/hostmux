@@ -1,6 +1,6 @@
 #!/bin/sh
 
-# Keybinding suggestions:
+# Keybinding suggestions for .tmux.conf:
 # bind-key a set-window-option synchronize-panes
 # bind-key X kill-session
 
