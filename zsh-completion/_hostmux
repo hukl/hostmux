@@ -1,0 +1,32 @@
+#compdef hostmux
+
+typeset -A opt_args
+
+_arguments -C \
+  '*-l[Layout]:layouts:->layouts' \
+  '*-s[Session Name]' \
+  '*:destinations:->destinations' \
+&& ret=0
+
+
+case "$state" in
+  (destinations)
+     local destinations; destinations=(
+        $hosts
+     )
+
+      _describe -t destinations 'destinations' destinations && ret=0
+  ;;
+  (layouts)
+    local layouts; layouts=(
+      'even-vertical'
+      'even-horizontal'
+      'tiled'
+      'main-vertical'
+      'main-horizontal'
+    )
+    _describe -t layouts 'layouts' layouts && ret=0
+  ;;
+esac;
+
+return 1;
