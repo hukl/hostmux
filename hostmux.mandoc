@@ -38,7 +38,10 @@ to a host. Currently there is no support for passing additional flags
 to ssh. If you do need them, add them to your ~/.ssh/config
 .El
 .Sh SEE ALSO
-tmux(1)
+.Bl -tag -width Ds
+.It Xr tmux 1
+.It Lk https://github.com/hukl/hostmux
+.El
 .Sh EXIT STATUS
 .Ex -std
 
