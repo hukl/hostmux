@@ -24,13 +24,15 @@ multiplex/broadcast commands to all split panes / servers
 Its arguments are as follows:
 .TP 8n
 \fB\-s\fR
-Specify a name for the tmux session. It defaults to hostmux, which means
-that you can have only one hostmux session at a time if you don't specify
-unique names for your sessions
+Specify a name for the tmux session. It defaults to
+\(oqhostmux\(cq
+which means that you can have only one hostmux session at a time if you don't
+specify unique names for your sessions
 .TP 8n
 \fB\-l\fR
 Specify a valid tmux layout e.g. even-horizontal, tiled, etc. It defaults
-to even-vertical
+to
+\(oqeven-vertical\(cq
 .TP 8n
 \fB\-h\fR
 Display usage information
@@ -41,7 +43,11 @@ is what you would pass to the ssh command when you are connecting
 to a host. Currently there is no support for passing additional flags
 to ssh. If you do need them, add them to your ~/.ssh/config
 .SH "SEE ALSO"
+.TP 8n
 tmux(1)
+.br
+.TP 8n
+\fBhttps://github.com/hukl/hostmux\fR
 .SH "EXIT STATUS"
 .br
 The \fBhostmux\fR utility exits\~0 on success, and\~>0 if an error occurs.
