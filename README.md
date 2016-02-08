@@ -55,8 +55,9 @@ bind-key X kill-session
 ## Installing the ZSH completion
 
 This repo contains a zsh completion file which needs to be added to your other zsh completions.
-Find or create an appropriate directory and if it isn't already in your ```$fpath``` then add this
-to your .zshrc:
+
+Find or create an appropriate directory, copy the completion file and if the directory isn't 
+already in your ```$fpath``` then add this to your .zshrc:
 
 ```
 # Extend Autocomplete Search Path
