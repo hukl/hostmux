@@ -61,7 +61,7 @@ already in your ```$fpath``` then add this to your .zshrc:
 
 ```
 # Extend Autocomplete Search Path
-fpath=($HOME/.zsh/lib/completions $fpath)
+fpath=(/path/to/your/completions/dir $fpath)
 ```
 
 ## Building / Installing the manpage
