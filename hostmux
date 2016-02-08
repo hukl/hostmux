@@ -1,23 +1,42 @@
 #!/bin/sh
 
-# Usage: ./hostmux host_a host_b host_c …
-
 # Keybinding suggestions for .tmux.conf:
 # bind-key a set-window-option synchronize-panes
 # bind-key X kill-session
 
 
-# Settings
-SESSION=bfc_hosts
+USAGE="hostmux [-h] [-l <tmux layout>] [-s <session name>] HOST A [, HOST B, HOST N]"
+
+# Default Settings
+SESSION_NAME=hostmux
 LAYOUT=even-vertical
 
+# Get optional user settings
+while getopts :l:h opt
+do
+case $opt in
+h)     echo $USAGE
+       exit 1
+       ;;
+l)     LAYOUT=$OPTARG
+       ;;
+s)     SESSION_NAME=$OPTARG
+       ;;
+'?')   echo "$0: invalid option -$OPTARG" >&2
+       echo $USAGE >&2
+       exit 1
+       ;;
+esac done
+shift $((OPTIND - 1))
+
+echo $#
+echo $LAYOUT
 
 # The actual script
-
 NUMBER_OF_HOSTS=$#
 
 # Initialize Session
-tmux -2 new-session -d -s $SESSION
+tmux -2 new-session -d -s $SESSION_NAME
 
 
 # Split as many times as we have hosts as arguments and reset
@@ -50,4 +69,4 @@ done
 
 
 # Attach to the session
-tmux -2 attach-session -t $SESSION
+tmux -2 attach-session -t $SESSION_NAME
