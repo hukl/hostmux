@@ -12,15 +12,15 @@ SESSION_NAME=hostmux
 LAYOUT=even-vertical
 
 # Get optional user settings
-while getopts :l:h opt
+while getopts :s:l:h opt
 do
 case $opt in
-h)     echo $USAGE
-       exit 1
+s)     SESSION_NAME=$OPTARG
        ;;
 l)     LAYOUT=$OPTARG
        ;;
-s)     SESSION_NAME=$OPTARG
+h)     echo $USAGE
+       exit 1
        ;;
 '?')   echo "$0: invalid option -$OPTARG" >&2
        echo $USAGE >&2
