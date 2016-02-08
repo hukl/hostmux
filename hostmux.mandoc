@@ -1,0 +1,45 @@
+.Dd Feb 08, 2016
+.Dt HOSTMUX 1
+.Os
+.Sh NAME
+.Nm hostmux
+.Nd Connects to a list of hosts via ssh in separate tmux split panes
+.Sh SYNOPSIS
+.Nm
+.Op Fl s Ar session-name
+.Op Fl l Ar tmux-layout
+.Op Fl h
+.Op Ar host_a
+.Op Ar host_b
+.Op Ar host_n
+.Sh DESCRIPTION
+Call hostmux followed by a list of hosts you want to connect to via ssh.
+The script will create a new tmux session with a split pane for each
+specified host and connect to it.
+.Pp
+You can then use the synchronize-panes feature of tmux to
+multiplex/broadcast commands to all split panes / servers
+.Pp
+Its arguments are as follows:
+.Bl -tag -width Ds
+.It Fl s
+Specify a name for the tmux session. It defaults to hostmux, which means
+that you can have only one hostmux session at a time if you don't specify
+unique names for your sessions
+.It Fl l
+Specify a valid tmux layout e.g. even-horizontal, tiled, etc. It defaults
+to even-vertical
+.It Fl h
+Display usage information
+.It Ar host
+Specify a space separated list of one or more user@hostname ssh targets. This
+is what you would pass to the ssh command when you are connecting
+to a host. Currently there is no support for passing additional flags
+to ssh. If you do need them, add them to your ~/.ssh/config
+.El
+.Sh SEE ALSO
+tmux(1)
+.Sh EXIT STATUS
+.Ex -std
+
+
