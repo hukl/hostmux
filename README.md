@@ -1,5 +1,8 @@
-# Toolbox
+# HOSTMUX
 
+hostmux is a small wrapper script for tmux to easily connect to a series of hosts via ssh and open a split pane for each of the hosts. Using the synchronize-pane feature of tmux, commands can be easily broadcasted/multiplexed. This is a light weight replacement for tools like csshX on OS X.
+
+### Usage
 
 ```
 HOSTMUX(1)                  General Commands Manual                 HOSTMUX(1)
