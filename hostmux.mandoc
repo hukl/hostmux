@@ -46,5 +46,9 @@ to ssh. If you do need them, add them to your ~/.ssh/config
 .El
 .Sh EXIT STATUS
 .Ex -std
-
+.Sh AUTHORS
+.Nm
+was written by
+.An John-Paul Bader (hukl) ,
+.Mt contact@smyck.org .
 
