@@ -64,3 +64,11 @@ fpath=($HOME/.zsh/lib/completions $fpath)
 ```
 
 ## Building / Installing the manpage
+
+To install the man page copy ```man/hostmux.1``` to your local man page folder e.g. ```/usr/local/share/man/man1/hostmux.1```
+
+The manpage is written with mandoc and "rendered" to be legacy compatible using the this command:
+
+```
+mandoc -Tman hostmux.mandoc > man/hostmux.1
+```
