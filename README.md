@@ -2,7 +2,7 @@
 
 hostmux is a small wrapper script for tmux to easily connect to a series of hosts via ssh and open a split pane for each of the hosts. Using the synchronize-pane feature of tmux, commands can be easily broadcasted/multiplexed. This is a light weight replacement for tools like csshX on OS X.
 
-### Usage
+## Usage
 
 ```
 HOSTMUX(1)                  General Commands Manual                 HOSTMUX(1)
@@ -40,3 +40,27 @@ DESCRIPTION
              passing additional flags to ssh. If you do need them, add them to
              your ~/.ssh/config
 ```
+
+## TMUX Keybindings
+
+The following two key bindings can be added to your .tmux.conf for even more convenience.
+
+```
+# This toggles the synchronize-panes feature
+bind-key a set-window-option synchronize-panes
+# This allows killing the whole session with a simple short cut:
+bind-key X kill-session
+```
+
+## Installing the ZSH completion
+
+This repo contains a zsh completion file which needs to be added to your other zsh completions.
+Find or create an appropriate directory and if it isn't already in your ```$fpath``` then add this
+to your .zshrc:
+
+```
+# Extend Autocomplete Search Path
+fpath=($HOME/.zsh/lib/completions $fpath)
+```
+
+## Building / Installing the manpage
