@@ -73,3 +73,7 @@ The manpage is written with mandoc and "rendered" to be legacy compatible using 
 ```
 mandoc -Tman hostmux.mandoc > man/hostmux.1
 ```
+
+## Suggestions for Improvement?
+
+Let me know!
