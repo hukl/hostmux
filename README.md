@@ -25,12 +25,12 @@ DESCRIPTION
 
      Its arguments are as follows:
 
-     -s      Specify a name for the tmux session. It defaults to hostmux,
+     -s      Specify a name for the tmux session. It defaults to `hostmux'
              which means that you can have only one hostmux session at a time
              if you don't specify unique names for your sessions
 
      -l      Specify a valid tmux layout e.g. even-horizontal, tiled, etc. It
-             defaults to even-vertical
+             defaults to `even-vertical'
 
      -h      Display usage information
 
