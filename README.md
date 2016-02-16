@@ -74,6 +74,14 @@ The manpage is written with mandoc and "rendered" to be legacy compatible using 
 mandoc -Tman hostmux.mandoc > man/hostmux.1
 ```
 
+## Homebrew
+Install hostmux via homebrew:
+
+```
+brew tap hukl/homebrew-tap
+brew install hostmux
+```
+
 ## Suggestions for Improvement?
 
 Let me know!
