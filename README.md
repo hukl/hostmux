@@ -52,6 +52,13 @@ bind-key a set-window-option synchronize-panes
 bind-key X kill-session
 ```
 
+## Installing on OS X via Homebrew
+
+```
+brew tap hukl/homebrew-tap
+brew install hostmux
+```
+
 ## Installing the ZSH completion
 
 This repo contains a zsh completion file which needs to be added to your other zsh completions.
@@ -72,14 +79,6 @@ The manpage is written with mandoc and "rendered" to be legacy compatible using 
 
 ```
 mandoc -Tman hostmux.mandoc > man/hostmux.1
-```
-
-## Homebrew
-Install hostmux via homebrew:
-
-```
-brew tap hukl/homebrew-tap
-brew install hostmux
 ```
 
 ## Suggestions for Improvement?
