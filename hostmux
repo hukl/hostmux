@@ -35,8 +35,12 @@ echo $LAYOUT
 # The actual script
 NUMBER_OF_HOSTS=$#
 
-# Initialize Session
-tmux -2 new-session -d -s $SESSION_NAME
+# Initialize Session only if not in a running session
+if [ -z "$TMUX" ]
+then
+        tmux -2 new-session -d -s $SESSION_NAME
+fi
+
 
 
 # Split as many times as we have hosts as arguments and reset
@@ -68,5 +72,8 @@ do
 done
 
 
-# Attach to the session
-tmux -2 attach-session -t $SESSION_NAME
+# Attach to the session only if not in a running session
+if [ -z "$TMUX" ]
+then
+  tmux -2 attach-session -t $SESSION_NAME
+fi
