@@ -62,7 +62,7 @@ done
 PANE_INDEX=0
 PANE_MAX=$(($NUMBER_OF_HOSTS-1))
 
-[ "x$RHOST" != "x" ] && ROPT="-A $RHOST ssh"
+[ "x$RHOST" != "x" ] && ROPT="-t -A $RHOST ssh"
 while [ $PANE_INDEX -le $PANE_MAX ]
 do
   tmux send-keys -t $PANE_INDEX "ssh $ROPT $1" C-m
