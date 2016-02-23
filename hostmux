@@ -59,6 +59,9 @@ done
 PANE_INDEX=0
 PANE_MAX=$(($NUMBER_OF_HOSTS-1))
 
+# Override pane-base-index in case it is set in tmux.conf
+tmux setw -g pane-base-index 0
+
 while [ $PANE_INDEX -le $PANE_MAX ]
 do
   tmux send-keys -t $PANE_INDEX "ssh $1" C-m
