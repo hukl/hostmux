@@ -25,7 +25,7 @@ h)     echo $USAGE
 r)     RHOST=$OPTARG
        echo "Using remote host $OPTARG to connect"
        ;;
-x)     CLOSE=" && exit"
+X)     CLOSE=" && exit"
        ;;
 '?')   echo "$0: invalid option -$OPTARG" >&2
        echo $USAGE >&2
