@@ -19,10 +19,10 @@ s)     SESSION_NAME=$OPTARG
        ;;
 l)     LAYOUT=$OPTARG
        ;;
+f)     HOSTS_FILE=$OPTARG
+       ;;
 h)     echo $USAGE
        exit 1
-       ;;
-f)     HOSTS_FILE=$OPTARG
        ;;
 '?')   echo "$0: invalid option -$OPTARG" >&2
        echo $USAGE >&2
