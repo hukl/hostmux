@@ -5,14 +5,14 @@
 # bind-key X kill-session
 
 
-USAGE="hostmux [-h] [-l <tmux layout>] [-s <session name>] [-r <remote host>] HOST A [, HOST B, HOST N]"
+USAGE="hostmux [-h] [-x] [-l <tmux layout>] [-s <session name>] [-r <remote host>] HOST A [, HOST B, HOST N]"
 
 # Default Settings
 SESSION_NAME=hostmux
 LAYOUT=even-vertical
 
 # Get optional user settings
-while getopts :s:l:h:r: opt
+while getopts :s:l:h:r:x opt
 do
 case $opt in
 s)     SESSION_NAME=$OPTARG
@@ -24,6 +24,8 @@ h)     echo $USAGE
        ;;
 r)     RHOST=$OPTARG
        echo "Using remote host $OPTARG to connect"
+       ;;
+x)     CLOSE=" && exit"
        ;;
 '?')   echo "$0: invalid option -$OPTARG" >&2
        echo $USAGE >&2
@@ -68,7 +70,7 @@ PANE_INDEX=0
 PANE_MAX=$(($NUMBER_OF_HOSTS-1))
 
 SSHPRE="ssh"
-SSHPOST=" && exit"
+SSHPOST="$CLOSE"
 if [ "x$RHOST" != "x" ]; then
   SSHPRE="$SSHPRE -t -A $RHOST \"ssh"
   SSHPOST="$SSHPOST\"$SSHPOST"
