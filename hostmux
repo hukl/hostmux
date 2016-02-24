@@ -66,8 +66,8 @@ done
 # then shift the argument list left, increase the index and go
 # into next iteration. Now $1 refers to the next argument passed
 # to the script
-PANE_INDEX=0
-PANE_MAX=$(($NUMBER_OF_HOSTS-1))
+PANE_INDEX=$(tmux show-window-options -g -v pane-base-index)
+PANE_MAX=$(($PANE_INDEX+$NUMBER_OF_HOSTS-1))
 
 SSHPRE="ssh"
 SSHPOST="$CLOSE"
