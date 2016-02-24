@@ -5,14 +5,14 @@
 # bind-key X kill-session
 
 
-USAGE="hostmux [-h] [-x] [-l <tmux layout>] [-s <session name>] [-r <remote host>] HOST A [, HOST B, HOST N]"
+USAGE="hostmux [-h] [-l <tmux layout>] [-s <session name>] HOST A [, HOST B, HOST N]"
 
 # Default Settings
 SESSION_NAME=hostmux
 LAYOUT=even-vertical
 
 # Get optional user settings
-while getopts :s:l:h:r:x opt
+while getopts :s:l:h opt
 do
 case $opt in
 s)     SESSION_NAME=$OPTARG
@@ -21,11 +21,6 @@ l)     LAYOUT=$OPTARG
        ;;
 h)     echo $USAGE
        exit 1
-       ;;
-r)     RHOST=$OPTARG
-       echo "Using remote host $OPTARG to connect"
-       ;;
-x)     CLOSE=" && exit"
        ;;
 '?')   echo "$0: invalid option -$OPTARG" >&2
        echo $USAGE >&2
@@ -41,12 +36,7 @@ echo $LAYOUT
 NUMBER_OF_HOSTS=$#
 
 # Initialize Session
-# If we are already in a tmux session just use the current window
-if ! { [ "$TERM" = "screen" ] && [ -n "$TMUX" ]; }; then
-  tmux -2 new-session -d -s $SESSION_NAME
-else
-  tmux rename-window $SESSION_NAME
-fi
+tmux -2 new-session -d -s $SESSION_NAME
 
 
 # Split as many times as we have hosts as arguments and reset
@@ -66,18 +56,12 @@ done
 # then shift the argument list left, increase the index and go
 # into next iteration. Now $1 refers to the next argument passed
 # to the script
-PANE_INDEX=$(tmux show-window-options -g -v pane-base-index)
-PANE_MAX=$(($PANE_INDEX+$NUMBER_OF_HOSTS-1))
+PANE_INDEX=0
+PANE_MAX=$(($NUMBER_OF_HOSTS-1))
 
-SSHPRE="ssh"
-SSHPOST="$CLOSE"
-if [ "x$RHOST" != "x" ]; then
-  SSHPRE="$SSHPRE -t -A $RHOST \"ssh"
-  SSHPOST="$SSHPOST\"$SSHPOST"
-fi
 while [ $PANE_INDEX -le $PANE_MAX ]
 do
-  tmux send-keys -t $PANE_INDEX "$SSHPRE $1$SSHPOST" C-m
+  tmux send-keys -t $PANE_INDEX "ssh $1" C-m
 
   shift
   PANE_INDEX=$(($PANE_INDEX+1))
@@ -85,5 +69,4 @@ done
 
 
 # Attach to the session
-# But only if we are not already in a tmux session
-{ [ "$TERM" = "screen" ] && [ -n "$TMUX" ]; } || tmux -2 attach-session -t $SESSION_NAME
+tmux -2 attach-session -t $SESSION_NAME
