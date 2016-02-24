@@ -12,7 +12,7 @@ SESSION_NAME=hostmux
 LAYOUT=even-vertical
 
 # Get optional user settings
-while getopts :s:l:h:r:X opt
+while getopts :s:l:h:r:x opt
 do
 case $opt in
 s)     SESSION_NAME=$OPTARG
@@ -25,7 +25,7 @@ h)     echo $USAGE
 r)     RHOST=$OPTARG
        echo "Using remote host $OPTARG to connect"
        ;;
-X)     CLOSE=" && exit"
+x)     CLOSE=" && exit"
        ;;
 '?')   echo "$0: invalid option -$OPTARG" >&2
        echo $USAGE >&2
