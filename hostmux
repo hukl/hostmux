@@ -5,19 +5,22 @@
 # bind-key X kill-session
 
 
-USAGE="hostmux [-h] [-l <tmux layout>] [-s <session name>] HOST A [, HOST B, HOST N]"
+USAGE="hostmux [-h] [-x] [-l <tmux layout>] [-s <session name>] HOST A [, HOST B, HOST N]"
 
 # Default Settings
 SESSION_NAME=hostmux
 LAYOUT=even-vertical
+CLOSE=
 
 # Get optional user settings
-while getopts :s:l:h opt
+while getopts :s:l:h:x opt
 do
 case $opt in
 s)     SESSION_NAME=$OPTARG
        ;;
 l)     LAYOUT=$OPTARG
+       ;;
+x)     CLOSE=" && exit"
        ;;
 h)     echo $USAGE
        exit 1
@@ -61,7 +64,7 @@ PANE_MAX=$(($NUMBER_OF_HOSTS-1))
 
 while [ $PANE_INDEX -le $PANE_MAX ]
 do
-  tmux send-keys -t $PANE_INDEX "ssh $1 && exit" C-m
+  tmux send-keys -t $PANE_INDEX "ssh $1 $CLOSE" C-m
 
   shift
   PANE_INDEX=$(($PANE_INDEX+1))

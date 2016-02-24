@@ -1,4 +1,4 @@
-.TH "HOSTMUX" "1" "February 8, 2016" "Mac OS X 10.10" "General Commands Manual"
+.TH "HOSTMUX" "1" "February 8, 2016" "Mac OS X 10.11" "General Commands Manual"
 .nh
 .if n .ad l
 .SH "NAME"
@@ -9,6 +9,7 @@
 \fBhostmux\fR
 [\fB\-s\fR\ \fIsession-name\fR]
 [\fB\-l\fR\ \fItmux-layout\fR]
+[\fB\-x\fR]
 [\fB\-h\fR]
 [\fIhost_a\fR]
 [\fIhost_b\fR]
@@ -33,6 +34,10 @@ specify unique names for your sessions
 Specify a valid tmux layout e.g. even-horizontal, tiled, etc. It defaults
 to
 \(oqeven-vertical\(cq
+.TP 8n
+\fB\-x\fR
+Close the pane and/or session automatically when the ssh session
+session exits successfully
 .TP 8n
 \fB\-h\fR
 Display usage information

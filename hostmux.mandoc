@@ -8,6 +8,7 @@
 .Nm
 .Op Fl s Ar session-name
 .Op Fl l Ar tmux-layout
+.Op Fl x
 .Op Fl h
 .Op Ar host_a
 .Op Ar host_b
@@ -31,6 +32,9 @@ specify unique names for your sessions
 Specify a valid tmux layout e.g. even-horizontal, tiled, etc. It defaults
 to
 .Ql even-vertical
+.It Fl x
+Close the pane and/or session automatically when the ssh session
+session exits successfully
 .It Fl h
 Display usage information
 .It Ar host
