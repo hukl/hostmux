@@ -42,10 +42,10 @@ NUMBER_OF_HOSTS=$#
 
 # Initialize Session
 # If we are already in a tmux session just use the current window
-if ! { [ "$TERM" = "screen" ] && [ -n "$TMUX" ]; }; then
-  tmux -2 new-session -d -s $SESSION_NAME
-else
+if [ "$TERM" = "screen" -a -n "$TMUX" ]; then
   tmux rename-window $SESSION_NAME
+else
+  tmux -2 new-session -d -s $SESSION_NAME
 fi
 
 # Split as many times as we have hosts as arguments and reset
@@ -86,4 +86,6 @@ done
 
 # Attach to the session
 # But only if we are not already in a tmux session
-{ [ "$TERM" = "screen" ] && [ -n "$TMUX" ]; } || tmux -2 attach-session -t $SESSION_NAME
+if ! [ "$TERM" = "screen" -a -n "$TMUX" ]; then
+  tmux -2 attach-session -t $SESSION_NAME
+fi
