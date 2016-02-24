@@ -39,6 +39,7 @@ NUMBER_OF_HOSTS=0
 NUMBER_OF_HOST_ARGS=$#
 HOSTS=""
 
+# Add each remaining host argument to the HOSTS list
 while [ $NUMBER_OF_HOSTS -lt $NUMBER_OF_HOST_ARGS ]
 do
   HOSTS="$HOSTS$1 "
@@ -46,6 +47,7 @@ do
   shift
 done
 
+# add each line in the HOSTS_FILE to the HOSTS list
 if [ -n "$HOSTS_FILE" ]
 then
   echo "parsing hosts file $HOSTS_FILE"
