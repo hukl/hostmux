@@ -1,4 +1,4 @@
-.TH "HOSTMUX" "1" "February 8, 2016" "Mac OS X 10.10" "General Commands Manual"
+.TH "HOSTMUX" "1" "February 8, 2016" "Linux 4.4.1-2-ARCH" "General Commands Manual"
 .nh
 .if n .ad l
 .SH "NAME"
@@ -9,6 +9,8 @@
 \fBhostmux\fR
 [\fB\-s\fR\ \fIsession-name\fR]
 [\fB\-l\fR\ \fItmux-layout\fR]
+[\fB\-r\fR\ \fIremote-host\fR]
+[\fB\-x\fR]
 [\fB\-h\fR]
 [\fIhost_a\fR]
 [\fIhost_b\fR]
@@ -34,6 +36,13 @@ Specify a valid tmux layout e.g. even-horizontal, tiled, etc. It defaults
 to
 \(oqeven-vertical\(cq
 .TP 8n
+\fB\-r\fR
+Specify a remote host used to jump to the hosts in a secured environment.
+.TP 8n
+\fB\-x\fR
+Close the pane and/or session automatically when the ssh session
+session exits successfully
+.TP 8n
 \fB\-h\fR
 Display usage information
 .TP 8n
@@ -56,4 +65,3 @@ The \fBhostmux\fR utility exits\~0 on success, and\~>0 if an error occurs.
 was written by
 John-Paul Bader (hukl),
 \fIcontact@smyck.org\fR.
-.sp
