@@ -39,7 +39,12 @@ echo $LAYOUT
 NUMBER_OF_HOSTS=$#
 
 # Initialize Session
-tmux -2 new-session -d -s $SESSION_NAME
+# If we are already in a tmux session just use the current window
+if ! { [ "$TERM" = "screen" ] && [ -n "$TMUX" ]; }; then
+  tmux -2 new-session -d -s $SESSION_NAME
+else
+  tmux rename-window $SESSION_NAME
+fi
 
 
 # Split as many times as we have hosts as arguments and reset
@@ -62,10 +67,15 @@ done
 PANE_INDEX=0
 PANE_MAX=$(($NUMBER_OF_HOSTS-1))
 
-[ "x$RHOST" != "x" ] && ROPT="-t -A $RHOST ssh"
+SSHPRE="ssh"
+SSHPOST=" && exit"
+if [ "x$RHOST" != "x" ]; then
+  SSHPRE="$SSHPRE -t -A $RHOST \"ssh"
+  SSHPOST="$SSHPOST\"$SSHPOST"
+fi
 while [ $PANE_INDEX -le $PANE_MAX ]
 do
-  tmux send-keys -t $PANE_INDEX "ssh $ROPT $1" C-m
+  tmux send-keys -t $PANE_INDEX "$SSHPRE $1$SSHPOST" C-m
 
   shift
   PANE_INDEX=$(($PANE_INDEX+1))
@@ -73,4 +83,5 @@ done
 
 
 # Attach to the session
-tmux -2 attach-session -t $SESSION_NAME
+# But only if we are not already in a tmux session
+{ [ "$TERM" = "screen" ] && [ -n "$TMUX" ]; } || tmux -2 attach-session -t $SESSION_NAME
