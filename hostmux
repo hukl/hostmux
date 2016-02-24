@@ -12,7 +12,7 @@ SESSION_NAME=hostmux
 LAYOUT=even-vertical
 
 # Get optional user settings
-while getopts :s:l:h:r:x opt
+while getopts :s:l:h:r:X opt
 do
 case $opt in
 s)     SESSION_NAME=$OPTARG
