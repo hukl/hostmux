@@ -5,6 +5,7 @@ typeset -A opt_args
 _arguments -C \
   '*-l[Layout]:layouts:->layouts' \
   '*-s[Session Name]' \
+  '*-f[Hosts file]:hosts file:_files' \
   '*:destinations:->destinations' \
 && ret=0
 

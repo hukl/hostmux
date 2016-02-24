@@ -8,6 +8,7 @@
 .Nm
 .Op Fl s Ar session-name
 .Op Fl l Ar tmux-layout
+.Op Fl f Ar hosts-file
 .Op Fl h
 .Op Ar host_a
 .Op Ar host_b
@@ -31,6 +32,9 @@ specify unique names for your sessions
 Specify a valid tmux layout e.g. even-horizontal, tiled, etc. It defaults
 to
 .Ql even-vertical
+.It Fl f
+Specify a file to read ssh targets from. This can be used in addition to
+host specified as arguments on the command line.
 .It Fl h
 Display usage information
 .It Ar host
@@ -39,6 +43,10 @@ is what you would pass to the ssh command when you are connecting
 to a host. Currently there is no support for passing additional flags
 to ssh. If you do need them, add them to your ~/.ssh/config
 .El
+.Sh HOSTS FILE FORMAT
+The hosts file should contain one ssh target per line. The format and
+restrictiona sfor ssh targets are identical to those for hosts specified
+on the command line.
 .Sh SEE ALSO
 .Bl -tag -width Ds
 .It Xr tmux 1
