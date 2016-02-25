@@ -12,7 +12,7 @@ NAME
      panes
 
 SYNOPSIS
-     hostmux [-s session-name] [-l tmux-layout] [-h] [host_a] [host_b]
+     hostmux [-s session-name] [-l tmux-layout] [-x] [-r remote-host] [-h] [host_a] [host_b]
              [host_n]
 
 DESCRIPTION
