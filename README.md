@@ -38,6 +38,9 @@ DESCRIPTION
      -x      Close the pane and/or session automatically when the ssh session
              session exits successfully
 
+     -x      Close the pane and/or session automatically when the ssh session
+             session closes successfully
+
      -h      Display usage information
 
      host    Specify a space separated list of one or more user@hostname ssh

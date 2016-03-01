@@ -5,6 +5,7 @@ typeset -A opt_args
 _arguments -C \
   '*-l[Layout]:layouts:->layouts' \
   '*-s[Session Name]' \
+  '*-x[Auto close pane]' \
   '*:destinations:->destinations' \
 && ret=0
 

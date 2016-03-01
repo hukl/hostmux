@@ -10,6 +10,7 @@ USAGE="hostmux [-h] [-x] [-l <tmux layout>] [-s <session name>] [-r <remote host
 # Default Settings
 SESSION_NAME=hostmux
 LAYOUT=even-vertical
+CLOSE=
 
 # Get optional user settings
 while getopts :s:l:h:r:x opt
@@ -18,6 +19,8 @@ case $opt in
 s)     SESSION_NAME=$OPTARG
        ;;
 l)     LAYOUT=$OPTARG
+       ;;
+x)     CLOSE=" && exit"
        ;;
 h)     echo $USAGE
        exit 1
