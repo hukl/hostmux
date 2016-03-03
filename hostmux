@@ -11,9 +11,10 @@ USAGE="hostmux [-h] [-x] [-l <tmux layout>] [-s <session name>] HOST A [, HOST B
 SESSION_NAME=hostmux
 LAYOUT=even-vertical
 CLOSE=
+ENUM=false
 
 # Get optional user settings
-while getopts :s:l:h:x opt
+while getopts :s:l:h:x:n opt
 do
 case $opt in
 s)     SESSION_NAME=$OPTARG
@@ -24,6 +25,8 @@ x)     CLOSE=" && exit"
        ;;
 h)     echo $USAGE
        exit 1
+       ;;
+n)     ENUM=true
        ;;
 '?')   echo "$0: invalid option -$OPTARG" >&2
        echo $USAGE >&2
@@ -38,6 +41,9 @@ echo $LAYOUT
 # The actual script
 NUMBER_OF_HOSTS=$#
 
+# enumerate the sessions so hostmux does not add hosts to a session with the same name
+# this is especially usefull if you use hostmux in shell aliases to have easy access to your clusters
+$ENUM && SESSION_NAME="$SESSION_NAME-$(tmux ls | grep $SESSION_NAME | wc -l)"
 # Initialize Session
 tmux -2 new-session -d -s $SESSION_NAME
 
