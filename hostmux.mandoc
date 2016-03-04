@@ -9,6 +9,7 @@
 .Op Fl s Ar session-name
 .Op Fl l Ar tmux-layout
 .Op Fl x
+.Op Fl n
 .Op Fl h
 .Op Ar host_a
 .Op Ar host_b
@@ -34,7 +35,10 @@ to
 .Ql even-vertical
 .It Fl x
 Close the pane and/or session automatically when the ssh session
-exits successfully
+session exits successfully.
+.It Fl n
+Enumerate the sessions so hostmux does not add hosts to a session with the same name.
+This is especially usefull if you use hostmux in shell aliases to have easy access to your clusters.
 .It Fl h
 Display usage information
 .It Ar host
