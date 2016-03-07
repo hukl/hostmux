@@ -6,6 +6,7 @@ _arguments -C \
   '*-l[Layout]:layouts:->layouts' \
   '*-s[Session Name]' \
   '*-x[Auto close pane]' \
+  '*-n[Enumerate sessions]' \
   '*:destinations:->destinations' \
 && ret=0
 
