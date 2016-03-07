@@ -45,7 +45,7 @@ NUMBER_OF_HOSTS=$#
 # this is especially usefull if you use hostmux in shell aliases to have easy access to your clusters
 if $ENUM ; then
   SESSION_BASE="$SESSION_NAME"
-  SESSION_COUNT=$(tmux ls | grep $SESSION_NAME | wc -l)
+  SESSION_COUNT=$(tmux ls 2>/dev/null | grep $SESSION_NAME | wc -l)
   SESSION_NAME="${SESSION_BASE}-${SESSION_COUNT}"
   LIMIT=50
   i=0
