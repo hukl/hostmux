@@ -9,6 +9,7 @@
 \fBhostmux\fR
 [\fB\-s\fR\ \fIsession-name\fR]
 [\fB\-l\fR\ \fItmux-layout\fR]
+[\fB\-r\fR\ \fIremote-host\fR]
 [\fB\-x\fR]
 [\fB\-h\fR]
 [\fIhost_a\fR]
@@ -34,6 +35,9 @@ specify unique names for your sessions
 Specify a valid tmux layout e.g. even-horizontal, tiled, etc. It defaults
 to
 \(oqeven-vertical\(cq
+.TP 8n
+\fB\-r\fR
+Specify a remote host used to jump to the hosts in a secured environment.
 .TP 8n
 \fB\-x\fR
 Close the pane and/or session automatically when the ssh session
@@ -61,4 +65,3 @@ The \fBhostmux\fR utility exits\~0 on success, and\~>0 if an error occurs.
 was written by
 John-Paul Bader (hukl),
 \fIcontact@smyck.org\fR.
-.sp

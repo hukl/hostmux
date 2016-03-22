@@ -12,7 +12,7 @@ NAME
      panes
 
 SYNOPSIS
-     hostmux [-s session-name] [-l tmux-layout] [-x] [-h] [host_a] [host_b]
+     hostmux [-s session-name] [-l tmux-layout] [-x] [-r remote-host] [-h] [host_a] [host_b]
              [host_n]
 
 DESCRIPTION
@@ -31,6 +31,9 @@ DESCRIPTION
 
      -l      Specify a valid tmux layout e.g. even-horizontal, tiled, etc. It
              defaults to `even-vertical'
+             
+     -r      Specify a remote host used to jump to the hosts in a secured
+             environment.
 
      -x      Close the pane and/or session automatically when the ssh session
              session closes successfully
