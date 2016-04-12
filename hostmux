@@ -13,7 +13,7 @@ LAYOUT=even-vertical
 CLOSE=
 
 # Get optional user settings
-while getopts :s:l:h:x opt
+while getopts s:l:hx opt
 do
 case $opt in
 s)     SESSION_NAME=$OPTARG
