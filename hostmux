@@ -64,7 +64,7 @@ PANE_MAX=$(($PANE_INDEX+$NUMBER_OF_HOSTS-1))
 # to the script
 while [ $PANE_INDEX -le $PANE_MAX ]
 do
-  tmux send-keys -t $PANE_INDEX "ssh $1 $CLOSE" C-m
+  tmux send-keys -t $PANE_INDEX " ssh $1 $CLOSE" C-m
 
   shift
   PANE_INDEX=$(($PANE_INDEX+1))
