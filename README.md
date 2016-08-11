@@ -1,19 +1,17 @@
 # HOSTMUX
 
-hostmux is a small wrapper script for tmux to easily connect to a series of hosts via ssh and open a split pane for each of the hosts. Using the synchronize-pane feature of tmux, commands can be easily broadcasted/multiplexed. This is a light weight replacement for tools like csshX on OS X.
+hostmux is a small wrapper script for tmux to easily connect to a series of
+hosts via ssh and open a split pane for each of the hosts. Using the
+synchronize-pane feature of tmux, commands can be easily
+broadcasted/multiplexed. This is a light weight replacement for tools like
+csshX on OS X.
 
 ## Usage
 
 ```
-HOSTMUX(1)                  General Commands Manual                 HOSTMUX(1)
-
-NAME
-     hostmux - Connects to a list of hosts via ssh in separate tmux split
-     panes
-
 SYNOPSIS
-     hostmux [-s session-name] [-l tmux-layout] [-x] [-h] [host_a] [host_b]
-             [host_n]
+     hostmux [-s session-name] [-l tmux-layout] [-x] [-p] [-S] [-h] host1
+             host2 ...
 
 DESCRIPTION
      Call hostmux followed by a list of hosts you want to connect to via ssh.
@@ -21,19 +19,23 @@ DESCRIPTION
      specified host and connect to it.
 
      You can then use the synchronize-panes feature of tmux to
-     multiplex/broadcast commands to all split panes / servers
+     multiplex/broadcast commands to all split panes / servers (see -S).
 
      Its arguments are as follows:
 
-     -s      Specify a name for the tmux session. It defaults to `hostmux'
+     -s      Specify a name for the tmux session. It defaults to 'hostmux'
              which means that you can have only one hostmux session at a time
              if you don't specify unique names for your sessions
 
      -l      Specify a valid tmux layout e.g. even-horizontal, tiled, etc. It
-             defaults to `even-vertical'
+             defaults to 'even-vertical'
 
      -x      Close the pane and/or session automatically when the ssh session
-             session closes successfully
+             exits successfully
+
+     -p      Identify panes by setting the prompt PS1 to include the host name
+
+     -S      Synchronize panes, i.e. type commands simultaneously in all panes
 
      -h      Display usage information
 
@@ -46,10 +48,11 @@ DESCRIPTION
 
 ## TMUX Keybindings
 
-The following two key bindings can be added to your .tmux.conf for even more convenience.
+The following two key bindings can be added to your .tmux.conf for even more
+convenience.
 
 ```
-# This toggles the synchronize-panes feature
+# This toggles the synchronize-panes feature, or use hostmux -S.
 bind-key a set-window-option synchronize-panes
 # This allows killing the whole session with a simple short cut:
 bind-key X kill-session
@@ -64,10 +67,11 @@ brew install hostmux
 
 ## Installing the ZSH completion
 
-This repo contains a zsh completion file which needs to be added to your other zsh completions.
+This repo contains a zsh completion file which needs to be added to your other
+zsh completions.
 
-Find or create an appropriate directory, copy the completion file and if the directory isn't 
-already in your ```$fpath``` then add this to your .zshrc:
+Find or create an appropriate directory, copy the completion file and if the
+directory isn't already in your `$fpath` then add this to your .zshrc:
 
 ```
 # Extend Autocomplete Search Path
@@ -76,13 +80,10 @@ fpath=(/path/to/your/completions/dir $fpath)
 
 ## Building / Installing the manpage
 
-To install the man page copy ```man/hostmux.1``` to your local man page folder e.g. ```/usr/local/share/man/man1/hostmux.1```
-
-The manpage is written with mandoc and "rendered" to be legacy compatible using the this command:
-
-```
-mandoc -Tman hostmux.mandoc > man/hostmux.1
-```
+Build `man/hostmux.1` (roff format) with the `Makefile` from `hostmux.mandoc`
+(BSD default mandoc format) using `mandoc` (Debian: `apt-get install mandoc`).
+Copy it to your local man page folder e.g.
+`/usr/local/share/man/man1/hostmux.1`
 
 ## Suggestions for Improvement?
 

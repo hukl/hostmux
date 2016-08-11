@@ -1,4 +1,4 @@
-.Dd Feb 08, 2016
+.Dd Aug 11, 2016
 .Dt HOSTMUX 1
 .Os
 .Sh NAME
@@ -9,17 +9,19 @@
 .Op Fl s Ar session-name
 .Op Fl l Ar tmux-layout
 .Op Fl x
+.Op Fl p
+.Op Fl S
 .Op Fl h
-.Op Ar host_a
-.Op Ar host_b
-.Op Ar host_n
+.Ar host1
+.Ar host2
+.Ar ...
 .Sh DESCRIPTION
 Call hostmux followed by a list of hosts you want to connect to via ssh.
 The script will create a new tmux session with a split pane for each
 specified host and connect to it.
 .Pp
 You can then use the synchronize-panes feature of tmux to
-multiplex/broadcast commands to all split panes / servers
+multiplex/broadcast commands to all split panes / servers (see -S).
 .Pp
 Its arguments are as follows:
 .Bl -tag -width Ds
@@ -35,6 +37,10 @@ to
 .It Fl x
 Close the pane and/or session automatically when the ssh session
 exits successfully
+.It Fl p
+Identify panes by setting the prompt PS1 to include the host name
+.It Fl S
+Synchronize panes, i.e. type commands simultaneously in all panes
 .It Fl h
 Display usage information
 .It Ar host
