@@ -1,0 +1,5 @@
+pane title
+----------
+If the remote [ba]shrc sets PS1 after we ssh into the host, then tmux grabs
+that and replaces pane_title with PS1. After that, we can execute printf
+'\033]2;$1\033\\' over and over .. the pane_title stays at PS1.

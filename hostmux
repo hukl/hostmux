@@ -1,20 +1,20 @@
 #!/bin/sh
 
 # Keybinding suggestions for .tmux.conf:
-#   bind-key a set-window-option synchronize-panes (see also -S)
 #   bind-key X kill-session
 
-USAGE="hostmux [-hxpS] [-l <tmux layout>] [-s <session name>] HOST_A [, HOST_B, HOST_N]"
+USAGE="hostmux [-hxpPS] [-l <tmux layout>] [-s <session name>] HOST_A [, HOST_B, HOST_N]"
 
 # Default Settings
 SESSION_NAME=hostmux
 LAYOUT=even-vertical
 CLOSE=
-SETPROMPT=false
-SYNCPANES=false
+SET_PANE_TITLE=false
+SET_PROMPT=false
+SYNC_PANES=false
 
 # Get optional user settings
-while getopts s:l:hxpS opt; do
+while getopts s:l:hxpPS opt; do
     case $opt in
     s)     SESSION_NAME=$OPTARG
            ;;
@@ -22,9 +22,11 @@ while getopts s:l:hxpS opt; do
            ;;
     x)     CLOSE=" && exit"
            ;;
-    p)     SETPROMPT=true
+    p)     SET_PANE_TITLE=true
            ;;   
-    S)     SYNCPANES=true
+    P)     SET_PROMPT=true
+           ;;   
+    S)     SYNC_PANES=true
            ;;   
     h)     echo $USAGE
            exit 0
@@ -52,11 +54,17 @@ while [ $LOOP_INDEX -lt $NUMBER_OF_HOSTS ]; do
     LOOP_INDEX=$(($LOOP_INDEX+1))
 done
 
-
 # Check what pane-base-index is configured and use it for addressing
 # the panes
 PANE_INDEX=$(tmux show-window-options -g -v pane-base-index)
 PANE_MAX=$(($PANE_INDEX+$NUMBER_OF_HOSTS-1))
+
+
+# http://stackoverflow.com/questions/9747952/pane-title-in-tmux
+if $SET_PANE_TITLE; then
+    tmux set-window-option -g pane-border-status top
+    tmux set-window-option -g pane-border-format " #{pane_index} [#{pane_title}] "
+fi
 
 # Loop through the panes and take the first argument as a ssh host
 # then shift the argument list left, increase the index and go
@@ -64,14 +72,17 @@ PANE_MAX=$(($PANE_INDEX+$NUMBER_OF_HOSTS-1))
 # to the script
 while [ $PANE_INDEX -le $PANE_MAX ]; do
     tmux send-keys -t $PANE_INDEX "ssh $1 $CLOSE" C-m
-    if $SETPROMPT; then
-        tmux send-keys -t $PANE_INDEX "export PS1='[\\u@$1 \\w]$ '" C-m
+    if $SET_PANE_TITLE; then
+        tmux send-keys -t $PANE_INDEX "printf '\033]2;$1\033\\\\'" C-m
+    fi
+    if $SET_PROMPT; then
+        tmux send-keys -t $PANE_INDEX "export PS1=\"[$1]$ \"" C-m
     fi
     shift
     PANE_INDEX=$(($PANE_INDEX+1))
 done
 
-if $SYNCPANES; then
+if $SYNC_PANES; then
     tmux set-window-option synchronize-panes on
 fi
 
