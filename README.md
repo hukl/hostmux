@@ -10,45 +10,51 @@ csshX on OS X.
 
 ```
 SYNOPSIS
-     hostmux [-s session-name] [-l tmux-layout] [-x] [-p] [-S] [-h] host1
-             host2 ...
+       hostmux [-s session-name] [-l tmux-layout] [-x] [-p] [-P] [-S] [-h]
+               host1 host2 ...
 
 DESCRIPTION
-     Call hostmux followed by a list of hosts you want to connect to via ssh.
-     The script will create a new tmux session with a split pane for each
-     specified host and connect to it.
+       Call hostmux followed by a list of hosts you want to connect to via
+       ssh.  The script will create a new tmux session with a split pane for
+       each specified host and connect to it.
 
-     You can then use the synchronize-panes feature of tmux to
-     multiplex/broadcast commands to all split panes / servers (see -S).
+       You can then use the synchronize-panes feature of tmux to
+       multiplex/broadcast commands to all split panes / servers (see -S).
 
-     Its arguments are as follows:
+       Its arguments are as follows:
 
-     -s      Specify a name for the tmux session. It defaults to 'hostmux'
-             which means that you can have only one hostmux session at a time
-             if you don't specify unique names for your sessions
+       -s      Specify a name for the tmux session. It defaults to ‘hostmux’
+               which means that you can have only one hostmux session at a
+               time if you don't specify unique names for your sessions
 
-     -l      Specify a valid tmux layout e.g. even-horizontal, tiled, etc. It
-             defaults to 'even-vertical'
+       -l      Specify a valid tmux layout e.g. even-horizontal, tiled, etc.
+               It defaults to ‘even-vertical’
 
-     -x      Close the pane and/or session automatically when the ssh session
-             exits successfully
+       -x      Close the pane and/or session automatically when the ssh
+               session exits successfully
 
-     -p      Identify panes by setting the prompt PS1 to include the host name
+       -p      Identify panes by setting the pane title to the ssh hostname
+               (tmux >= 2.3)
 
-     -S      Synchronize panes, i.e. type commands simultaneously in all panes
+       -P      Identify panes by setting the prompt PS1 to "[<hostname>]$ ",
+               use as last resort if -p doesn't work (e.g. funny PS1 settings
+               on the ssh host mess up PS1 and the pane title)
 
-     -h      Display usage information
+       -S      Synchronize panes, i.e. type commands simultaneously in all
+               panes
 
-     host    Specify a space separated list of one or more user@hostname ssh
-             targets. This is what you would pass to the ssh command when you
-             are connecting to a host. Currently there is no support for
-             passing additional flags to ssh. If you do need them, add them to
-             your ~/.ssh/config
+       -h      Display usage information
+
+       host    Specify a space separated list of one or more user@hostname
+               ssh targets. This is what you would pass to the ssh command
+               when you are connecting to a host. Currently there is no
+               support for passing additional flags to ssh. If you do need
+               them, add them to your ~/.ssh/config
 ```
 
 ## TMUX Keybindings
 
-The following two key bindings can be added to your .tmux.conf for even more
+The following key bindings can be added to your .tmux.conf for even more
 convenience.
 
 ```

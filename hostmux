@@ -1,8 +1,5 @@
 #!/bin/sh
 
-# Keybinding suggestions for .tmux.conf:
-#   bind-key X kill-session
-
 USAGE="hostmux [-hxpPS] [-l <tmux layout>] [-s <session name>] HOST_A [, HOST_B, HOST_N]"
 
 # Default Settings
