@@ -6,16 +6,17 @@
 .Nd Connects to a list of hosts via ssh in separate tmux split panes
 .Sh SYNOPSIS
 .Nm
+.Op Fl h
+.Li |
 .Op Fl s Ar session-name
 .Op Fl l Ar tmux-layout
 .Op Fl x
 .Op Fl p
 .Op Fl P
 .Op Fl S
-.Op Fl h
 .Ar host1
-.Ar host2
-.Ar ...
+.Ar [host2
+.Ar ...]
 .Sh DESCRIPTION
 Call hostmux followed by a list of hosts you want to connect to via ssh.
 The script will create a new tmux session with a split pane for each
@@ -39,11 +40,11 @@ to
 Close the pane and/or session automatically when the ssh session
 exits successfully
 .It Fl p
-Identify panes by setting the pane title to the ssh hostname (tmux >= 2.3)
+Identify panes by setting the pane title to the ssh hostname (tmux >= 2.3), may
+not work if the remote host resets $PS1
 .It Fl P
-Identify panes by setting the prompt PS1 to "[<hostname>]$ ", use as last
-resort if -p doesn't work (e.g. funny PS1 settings on the ssh host mess up PS1
-and the pane title)
+Identify panes by setting the remote prompt $PS1 to "[<hostname>]$ " after
+login, use as last resort if -p doesn't work
 .It Fl S
 Synchronize panes, i.e. type commands simultaneously in all panes
 .It Fl h

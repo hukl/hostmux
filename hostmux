@@ -1,6 +1,6 @@
 #!/bin/sh
 
-USAGE="hostmux [-hxpPS] [-l <tmux layout>] [-s <session name>] HOST_A [, HOST_B, HOST_N]"
+USAGE="hostmux -h | [-xpPS] [-l <tmux layout>] [-s <session name>] host1 [host2 ...]"
 
 # Default Settings
 SESSION_NAME=hostmux
