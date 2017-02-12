@@ -68,8 +68,7 @@ bind-key X kill-session
 ## Installing on OS X via Homebrew
 
 ```
-brew tap hukl/homebrew-tap
-brew install hostmux
+brew install hukl/tap/hostmux
 ```
 
 ## Installing the ZSH completion
