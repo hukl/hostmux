@@ -8,10 +8,11 @@ csshX on OS X.
 
 ## Usage
 
+<!-- read manpage in vim: ":r!MANWIDTH=79 man man/hostmux.1" -->
 ```
 SYNOPSIS
-       hostmux [-s session-name] [-l tmux-layout] [-x] [-p] [-P] [-S] [-h]
-               host1 host2 ...
+       hostmux [-h] | [-s session-name] [-l tmux-layout] [-x] [-p] [-P] [-S]
+               host1 [host2 ...]
 
 DESCRIPTION
        Call hostmux followed by a list of hosts you want to connect to via
@@ -23,22 +24,22 @@ DESCRIPTION
 
        Its arguments are as follows:
 
-       -s      Specify a name for the tmux session. It defaults to ‘hostmux’
+       -s      Specify a name for the tmux session. It defaults to 'hostmux'
                which means that you can have only one hostmux session at a
                time if you don't specify unique names for your sessions
 
        -l      Specify a valid tmux layout e.g. even-horizontal, tiled, etc.
-               It defaults to ‘even-vertical’
+               It defaults to
 
        -x      Close the pane and/or session automatically when the ssh
                session exits successfully
 
        -p      Identify panes by setting the pane title to the ssh hostname
-               (tmux >= 2.3)
+               (tmux >= 2.3), may not work if the remote host does $PS1 magic
+               like setting the terminal title, in that case use -P
 
-       -P      Identify panes by setting the prompt PS1 to "[<hostname>]$ ",
-               use as last resort if -p doesn't work (e.g. funny PS1 settings
-               on the ssh host mess up PS1 and the pane title)
+       -P      Identify panes by setting the remote prompt $PS1 to
+               "[<hostname>]$ " after login
 
        -S      Synchronize panes, i.e. type commands simultaneously in all
                panes
@@ -60,7 +61,7 @@ convenience.
 ```
 # This toggles the synchronize-panes feature, or use hostmux -S.
 bind-key a set-window-option synchronize-panes
-# This allows killing the whole session with a simple short cut:
+# This allows killing the whole session, or use hostmux -x
 bind-key X kill-session
 ```
 
@@ -90,6 +91,22 @@ Build `man/hostmux.1` (roff format) with the `Makefile` from `hostmux.mandoc`
 (BSD default mandoc format) using `mandoc` (Debian: `apt-get install mandoc`).
 Copy it to your local man page folder e.g.
 `/usr/local/share/man/man1/hostmux.1`
+
+## The pane title
+
+When using `-p`, then `hostmux` will try to display the command line hostname
+(`host1`, `host2`, ...) in the border of every pane. This is done by [setting
+the tmux variable `pane_title`][man_tmux] via `printf '\033]2;hostN\007`. This
+works, unless the remote meachine does some PS1 magic which involves [setting
+the terminal title][term_title] (e.g. in bash: `PS1="\[\033]0;\u@\h:\w\007\]$
+"`. Then, tmux uses that title as `pane_title` and, for unknown reasons,
+resetting it using `printf ...` doesn't change `pane_title` anymore. In that
+case, you can either simplify the remote's PS1 magic (e.g. just
+`PS1="[\u@\h:\w]$ "`) or force `PS1="[hostN]$ "` using `hostmux -P` (capital
+P).
+
+[man_tmux]: https://www.freebsd.org/cgi/man.cgi?query=tmux&sektion=1&apropos=0&manpath=FreeBSD+11.0-RELEASE+and+Ports#NAMES_AND_TITLES 
+[term_title]: http://tldp.org/HOWTO/Xterm-Title-3.html
 
 ## Suggestions for Improvement?
 

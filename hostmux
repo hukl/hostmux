@@ -69,11 +69,11 @@ fi
 # to the script
 while [ $PANE_INDEX -le $PANE_MAX ]; do
     tmux send-keys -t $PANE_INDEX " ssh $1 $CLOSE" C-m
-    if $SET_PANE_TITLE; then
-        tmux send-keys -t $PANE_INDEX " printf '\033]2;$1\033\\\\'" C-m
-    fi
     if $SET_PROMPT; then
         tmux send-keys -t $PANE_INDEX " export PS1=\"[$1]$ \"" C-m
+    fi
+    if $SET_PANE_TITLE; then
+        tmux send-keys -t $PANE_INDEX " unset PROMPT_COMMAND; printf '\033]2;$1\007'" C-m
     fi
     shift
     PANE_INDEX=$(($PANE_INDEX+1))

@@ -28,23 +28,23 @@ multiplex/broadcast commands to all split panes / servers (see -S).
 Its arguments are as follows:
 .Bl -tag -width Ds
 .It Fl s
-Specify a name for the tmux session. It defaults to
-.Ql hostmux
-which means that you can have only one hostmux session at a time if you don't
-specify unique names for your sessions
+Specify a name for the tmux session. It defaults to 'hostmux' which means that
+you can have only one hostmux session at a time if you don't specify unique
+names for your sessions
 .It Fl l
-Specify a valid tmux layout e.g. even-horizontal, tiled, etc. It defaults
-to
-.Ql even-vertical
+Specify a valid tmux layout e.g. even-horizontal, tiled, etc. It defaults to
+'even-vertical'
 .It Fl x
 Close the pane and/or session automatically when the ssh session
 exits successfully
 .It Fl p
 Identify panes by setting the pane title to the ssh hostname (tmux >= 2.3), may
-not work if the remote host resets $PS1
+not work if the remote host does $PS1 magic like setting the terminal title,
+in that case use 
+.Fl P
 .It Fl P
 Identify panes by setting the remote prompt $PS1 to "[<hostname>]$ " after
-login, use as last resort if -p doesn't work
+login
 .It Fl S
 Synchronize panes, i.e. type commands simultaneously in all panes
 .It Fl h
