@@ -1,4 +1,4 @@
-.Dd Feb 08, 2016
+.Dd Feb 6, 2017
 .Dt HOSTMUX 1
 .Os
 .Sh NAME
@@ -6,35 +6,47 @@
 .Nd Connects to a list of hosts via ssh in separate tmux split panes
 .Sh SYNOPSIS
 .Nm
+.Op Fl h
+.Li |
 .Op Fl s Ar session-name
 .Op Fl l Ar tmux-layout
 .Op Fl x
-.Op Fl h
-.Op Ar host_a
-.Op Ar host_b
-.Op Ar host_n
+.Op Fl p
+.Op Fl P
+.Op Fl a
+.Ar host1
+.Ar [host2
+.Ar ...]
 .Sh DESCRIPTION
 Call hostmux followed by a list of hosts you want to connect to via ssh.
 The script will create a new tmux session with a split pane for each
 specified host and connect to it.
 .Pp
 You can then use the synchronize-panes feature of tmux to
-multiplex/broadcast commands to all split panes / servers
+multiplex/broadcast commands to all split panes / servers (see -a).
 .Pp
 Its arguments are as follows:
 .Bl -tag -width Ds
 .It Fl s
-Specify a name for the tmux session. It defaults to
-.Ql hostmux
-which means that you can have only one hostmux session at a time if you don't
-specify unique names for your sessions
+Specify a name for the tmux session. It defaults to 'hostmux' which means that
+you can have only one hostmux session at a time if you don't specify unique
+names for your sessions
 .It Fl l
-Specify a valid tmux layout e.g. even-horizontal, tiled, etc. It defaults
-to
-.Ql even-vertical
+Specify a valid tmux layout e.g. even-horizontal, tiled, etc. It defaults to
+'even-vertical'
 .It Fl x
 Close the pane and/or session automatically when the ssh session
 exits successfully
+.It Fl p
+Identify panes by setting the pane title to the ssh hostname (tmux >= 2.3), may
+not work if the remote host does $PS1 magic like setting the terminal title,
+in that case use 
+.Fl P
+.It Fl P
+Identify panes by setting the remote prompt $PS1 to "[<hostname>]$ " after
+login
+.It Fl a
+Synchronize all panes, i.e. type commands simultaneously in all panes
 .It Fl h
 Display usage information
 .It Ar host

@@ -6,6 +6,9 @@ _arguments -C \
   '*-l[Layout]:layouts:->layouts' \
   '*-s[Session Name]' \
   '*-x[Auto close pane]' \
+  '*-p[Set pane title to ssh hostname]' \
+  '*-P[Set remote prompt to ssh hostname]' \
+  '*-a[Sync panes]' \
   '*:destinations:->destinations' \
 && ret=0
 
