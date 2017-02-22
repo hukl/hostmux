@@ -75,13 +75,10 @@ fpath=(/path/to/your/completions/dir $fpath)
 
 ## Building / Installing the manpage
 
-To install the man page copy ```man/hostmux.1``` to your local man page folder e.g. ```/usr/local/share/man/man1/hostmux.1```
-
-The manpage is written with mandoc and "rendered" to be legacy compatible using the this command:
-
-```
-mandoc -Tman hostmux.mandoc > man/hostmux.1
-```
+Build `man/hostmux.1` (roff format) with the `Makefile` from `hostmux.mandoc`
+(BSD default mandoc format) using `mandoc` (Debian: `apt-get install mandoc`).
+Copy it to your local man page folder e.g.
+`/usr/local/share/man/man1/hostmux.1`
 
 ## Suggestions for Improvement?
 
