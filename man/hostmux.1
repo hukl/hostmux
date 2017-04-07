@@ -1,0 +1,78 @@
+.TH "HOSTMUX" "1" "February 6, 2017" "sh" "General Commands Manual"
+.nh
+.if n .ad l
+.SH "NAME"
+\fBhostmux\fR
+\- Connects to a list of hosts via ssh in separate tmux split panes
+.SH "SYNOPSIS"
+.HP 8n
+\fBhostmux\fR
+[\fB\-h\fR]
+|
+[\fB\-s\fR\ \fIsession-name\fR]
+[\fB\-l\fR\ \fItmux-layout\fR]
+[\fB\-x\fR]
+[\fB\-p\fR]
+[\fB\-P\fR]
+[\fB\-a\fR]
+\fIhost1\fR
+\fI[host2\fR
+\fI...]\fR
+.SH "DESCRIPTION"
+Call hostmux followed by a list of hosts you want to connect to via ssh.
+The script will create a new tmux session with a split pane for each
+specified host and connect to it.
+.PP
+You can then use the synchronize-panes feature of tmux to
+multiplex/broadcast commands to all split panes / servers (see -a).
+.PP
+Its arguments are as follows:
+.TP 8n
+\fB\-s\fR
+Specify a name for the tmux session. It defaults to 'hostmux' which means that
+you can have only one hostmux session at a time if you don't specify unique
+names for your sessions
+.TP 8n
+\fB\-l\fR
+Specify a valid tmux layout e.g. even-horizontal, tiled, etc. It defaults to
+.TP 8n
+\fB\-x\fR
+Close the pane and/or session automatically when the ssh session
+exits successfully
+.TP 8n
+\fB\-p\fR
+Identify panes by setting the pane title to the ssh hostname (tmux >= 2.3), may
+not work if the remote host does $PS1 magic like setting the terminal title,
+in that case use
+\fB\-P\fR
+.TP 8n
+\fB\-P\fR
+Identify panes by setting the remote prompt $PS1 to "[<hostname>]$ " after
+login
+.TP 8n
+\fB\-a\fR
+Synchronize all panes, i.e. type commands simultaneously in all panes
+.TP 8n
+\fB\-h\fR
+Display usage information
+.TP 8n
+\fIhost\fR
+Specify a space separated list of one or more user@hostname ssh targets. This
+is what you would pass to the ssh command when you are connecting
+to a host. Currently there is no support for passing additional flags
+to ssh. If you do need them, add them to your ~/.ssh/config
+.SH "SEE ALSO"
+.TP 8n
+tmux(1)
+.br
+.TP 8n
+\fBhttps://github.com/hukl/hostmux\fR
+.SH "EXIT STATUS"
+.br
+The \fBhostmux\fR utility exits\~0 on success, and\~>0 if an error occurs.
+.SH "AUTHORS"
+\fBhostmux\fR
+was written by
+John-Paul Bader (hukl),
+\fIcontact@smyck.org\fR.
+.sp
