@@ -1,4 +1,4 @@
-.Dd Feb 6, 2017
+.Dd April 7, 2017
 .Dt HOSTMUX 1
 .Os
 .Sh NAME
@@ -7,7 +7,6 @@
 .Sh SYNOPSIS
 .Nm
 .Op Fl h
-.Li |
 .Op Fl s Ar session-name
 .Op Fl l Ar tmux-layout
 .Op Fl f Ar host_file
@@ -28,13 +27,13 @@ multiplex/broadcast commands to all split panes / servers (see -a).
 .Pp
 Its arguments are as follows:
 .Bl -tag -width Ds
-.It Fl s session-name
+.It Fl s Ar session-name
 Specify a name for the tmux session. It defaults to 'hostmux' which means that
 you can have only one hostmux session at a time if you don't specify unique
 names for your sessions
-.It Fl l tmux-layout
+.It Fl l Ar tmux-layout
 Specify a valid tmux layout e.g. even-horizontal, tiled, etc. It defaults to
-'even-vertical'
+\'even-vertical\'
 .It Fl f Ar hostfile
 Specify a file which contains a newline separated list of [user@]host names. The
 hosts from the file will be merged with the hosts provided as optional arguments

@@ -1,4 +1,4 @@
-.TH "HOSTMUX" "1" "February 6, 2017" "sh" "General Commands Manual"
+.TH "HOSTMUX" "1" "April 7, 2017" "sh" "General Commands Manual"
 .nh
 .if n .ad l
 .SH "NAME"
@@ -8,7 +8,6 @@
 .HP 8n
 \fBhostmux\fR
 [\fB\-h\fR]
-|
 [\fB\-s\fR\ \fIsession-name\fR]
 [\fB\-l\fR\ \fItmux-layout\fR]
 [\fB\-f\fR\ \fIhost_file\fR]
@@ -29,13 +28,14 @@ multiplex/broadcast commands to all split panes / servers (see -a).
 .PP
 Its arguments are as follows:
 .TP 8n
-\fB\-s\fR \fB\-session-name\fR
+\fB\-s\fR \fIsession-name\fR
 Specify a name for the tmux session. It defaults to 'hostmux' which means that
 you can have only one hostmux session at a time if you don't specify unique
 names for your sessions
 .TP 8n
-\fB\-l\fR \fB\-tmux-layout\fR
+\fB\-l\fR \fItmux-layout\fR
 Specify a valid tmux layout e.g. even-horizontal, tiled, etc. It defaults to
+\'even-vertical\'
 .TP 8n
 \fB\-f\fR \fIhostfile\fR
 Specify a file which contains a newline separated list of [user@]host names. The
