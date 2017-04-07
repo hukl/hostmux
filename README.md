@@ -10,9 +10,17 @@ csshX on OS X.
 
 <!-- read manpage in vim: ":r!MANWIDTH=79 man man/hostmux.1" -->
 ```
+HOSTMUX(1)                  General Commands Manual                 HOSTMUX(1)
+
+
+
+NAME
+       hostmux - Connects to a list of hosts via ssh in separate tmux split
+       panes
+
 SYNOPSIS
-       hostmux [-h] | [-s session-name] [-l tmux-layout] [-x] [-p] [-P] [-a]
-               host1 [host2 ...]
+       hostmux [-h] | [-s session-name] [-l tmux-layout] [-f host_file] [-x]
+               [-p] [-P] [-a] host1 [host2 ...]
 
 DESCRIPTION
        Call hostmux followed by a list of hosts you want to connect to via
@@ -24,12 +32,19 @@ DESCRIPTION
 
        Its arguments are as follows:
 
-       -s      Specify a name for the tmux session. It defaults to 'hostmux'
+       -s -session-name
+               Specify a name for the tmux session. It defaults to 'hostmux'
                which means that you can have only one hostmux session at a
                time if you don't specify unique names for your sessions
 
-       -l      Specify a valid tmux layout e.g. even-horizontal, tiled, etc.
+       -l -tmux-layout
+               Specify a valid tmux layout e.g. even-horizontal, tiled, etc.
                It defaults to
+
+       -f hostfile
+               Specify a file which contains a newline separated list of
+               [user@]host names. The hosts from the file will be merged with
+               the hosts provided as optional arguments
 
        -x      Close the pane and/or session automatically when the ssh
                session exits successfully
@@ -41,16 +56,31 @@ DESCRIPTION
        -P      Identify panes by setting the remote prompt $PS1 to
                "[<hostname>]$ " after login
 
-       -a      Synchronize all panes, i.e. type commands simultaneously in
-               all panes
+       -a      Synchronize all panes, i.e. type commands simultaneously in all
+               panes
 
        -h      Display usage information
 
-       host    Specify a space separated list of one or more user@hostname
-               ssh targets. This is what you would pass to the ssh command
-               when you are connecting to a host. Currently there is no
-               support for passing additional flags to ssh. If you do need
-               them, add them to your ~/.ssh/config
+       host    Specify a space separated list of one or more user@hostname ssh
+               targets. This is what you would pass to the ssh command when
+               you are connecting to a host. Currently there is no support for
+               passing additional flags to ssh. If you do need them, add them
+               to your ~/.ssh/config
+
+SEE ALSO
+       tmux(1)
+
+       https://github.com/hukl/hostmux
+
+EXIT STATUS
+       The hostmux utility exits 0 on success, and >0 if an error occurs.
+
+AUTHORS
+       hostmux was written by John-Paul Bader (hukl), contact@smyck.org.
+
+
+
+sh                             February 6, 2017                     HOSTMUX(1)
 ```
 
 ## TMUX Keybindings
