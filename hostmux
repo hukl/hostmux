@@ -61,7 +61,11 @@ echo $HOSTS
 echo $NUMBER_OF_HOSTS
 
 # Initialize Session
-tmux -2 new-session -d -s $SESSION_NAME
+# If we are already in a tmux session just use the current window
+if ! { [ "$TERM" = "screen" ] && [ -n "$TMUX" ]; }
+    then tmux -2 new-session -d -s $SESSION_NAME
+    else tmux rename-window $SESSION_NAME
+fi
 
 # Split as many times as we have hosts and reset
 # the layout each time for even distribution
@@ -104,4 +108,7 @@ if $SYNC_PANES; then
 fi
 
 # Attach to the session
-tmux -2 attach-session -t $SESSION_NAME
+# But only if we are not already in a tmux session
+if ! { [ "$TERM" = "screen" ] && [ -n "$TMUX" ]; }
+  then tmux -2 attach-session -t $SESSION_NAME
+fi
