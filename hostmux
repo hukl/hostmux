@@ -60,8 +60,12 @@ fi
 echo $HOSTS
 echo $NUMBER_OF_HOSTS
 
-# Initialize Session
-tmux -2 new-session -d -s $SESSION_NAME
+# Initialize Session only if not in a running session
+if [ -z "$TMUX" ]
+then
+        tmux -2 new-session -d -s $SESSION_NAME
+fi
+
 
 # Split as many times as we have hosts and reset
 # the layout each time for even distribution
@@ -103,5 +107,8 @@ if $SYNC_PANES; then
     tmux set-window-option synchronize-panes on
 fi
 
-# Attach to the session
-tmux -2 attach-session -t $SESSION_NAME
+# Attach to the session only if not in a running session
+if [ -z "$TMUX" ]
+then
+  tmux -2 attach-session -t $SESSION_NAME
+fi
