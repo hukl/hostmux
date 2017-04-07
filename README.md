@@ -88,7 +88,7 @@ sh                             February 6, 2017                     HOSTMUX(1)
 The following key bindings can be added to your .tmux.conf for even more
 convenience.
 
-```
+```sh
 # This toggles the synchronize-panes feature, or use hostmux -a.
 bind-key a set-window-option synchronize-panes
 # This allows killing the whole session, or use hostmux -x
@@ -97,7 +97,7 @@ bind-key X kill-session
 
 ## Installing on OS X via Homebrew
 
-```
+```sh
 brew install hukl/tap/hostmux
 ```
 
@@ -109,7 +109,7 @@ zsh completions.
 Find or create an appropriate directory, copy the completion file and if the
 directory isn't already in your `$fpath` then add this to your .zshrc:
 
-```
+```sh
 # Extend Autocomplete Search Path
 fpath=(/path/to/your/completions/dir $fpath)
 ```
