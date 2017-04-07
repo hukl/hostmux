@@ -1,6 +1,6 @@
 #!/bin/sh
 
-USAGE="hostmux -h | [-xpPa] [-l <tmux layout>] [-s <session name>] host1 [host2 ...]"
+USAGE="hostmux -h | [-xpPa] [-l <tmux layout>] [-s <session name>] [-f <host_file>] host1 [host2 ...]"
 
 SESSION_NAME=hostmux
 LAYOUT=even-vertical
@@ -10,7 +10,7 @@ SET_PROMPT=false
 SYNC_PANES=false
 
 # Get optional user settings
-while getopts s:l:hxpPa opt; do
+while getopts s:l:f:hxpPa opt; do
     case $opt in
     s)     SESSION_NAME=$OPTARG
            ;;
@@ -19,11 +19,13 @@ while getopts s:l:hxpPa opt; do
     x)     CLOSE=" && exit"
            ;;
     p)     SET_PANE_TITLE=true
-           ;;   
+           ;;
     P)     SET_PROMPT=true
-           ;;   
+           ;;
     a)     SYNC_PANES=true
-           ;;   
+           ;;
+    f)     HOSTS_FILE=$OPTARG
+           ;;
     h)     echo $USAGE
            exit 0
            ;;
@@ -34,12 +36,34 @@ while getopts s:l:hxpPa opt; do
 esac done
 shift $((OPTIND - 1))
 
-NUMBER_OF_HOSTS=$#
+NUMBER_OF_HOSTS=0
+NUMBER_OF_HOST_ARGS=$#
+HOSTS=""
+
+while [ $NUMBER_OF_HOSTS -lt $NUMBER_OF_HOST_ARGS ]
+do
+    HOSTS="$HOSTS$1 "
+    NUMBER_OF_HOSTS=$(($NUMBER_OF_HOSTS+1))
+    shift
+done
+
+# Read hosts from the hosts file
+if [ -n "$HOSTS_FILE" ]
+then
+    while read line
+    do
+        HOSTS="$HOSTS$line "
+        NUMBER_OF_HOSTS=$(($NUMBER_OF_HOSTS+1))
+    done < hf
+fi
+
+echo $HOSTS
+echo $NUMBER_OF_HOSTS
 
 # Initialize Session
 tmux -2 new-session -d -s $SESSION_NAME
 
-# Split as many times as we have hosts as arguments and reset
+# Split as many times as we have hosts and reset
 # the layout each time for even distribution
 LOOP_INDEX=1
 
@@ -52,8 +76,6 @@ done
 # Check what pane-base-index is configured and use it for addressing
 # the panes
 PANE_INDEX=$(tmux show-window-options -g -v pane-base-index)
-PANE_MAX=$(($PANE_INDEX+$NUMBER_OF_HOSTS-1))
-
 
 # http://stackoverflow.com/questions/9747952/pane-title-in-tmux
 if $SET_PANE_TITLE; then
@@ -65,15 +87,15 @@ fi
 # then shift the argument list left, increase the index and go
 # into next iteration. Now $1 refers to the next argument passed
 # to the script
-while [ $PANE_INDEX -le $PANE_MAX ]; do
-    tmux send-keys -t $PANE_INDEX " ssh $1 $CLOSE" C-m
+for host in $HOSTS
+do
+    tmux send-keys -t $PANE_INDEX " ssh $host $CLOSE" C-m
     if $SET_PROMPT; then
-        tmux send-keys -t $PANE_INDEX " export PS1=\"[$1]$ \"" C-m
+        tmux send-keys -t $PANE_INDEX " export PS1=\"[$host]$ \"" C-m
     fi
     if $SET_PANE_TITLE; then
-        tmux send-keys -t $PANE_INDEX " unset PROMPT_COMMAND; printf '\033]2;$1\007'" C-m
+        tmux send-keys -t $PANE_INDEX " unset PROMPT_COMMAND; printf '\033]2;$host\007'" C-m
     fi
-    shift
     PANE_INDEX=$(($PANE_INDEX+1))
 done
 

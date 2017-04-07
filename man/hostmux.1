@@ -11,6 +11,7 @@
 |
 [\fB\-s\fR\ \fIsession-name\fR]
 [\fB\-l\fR\ \fItmux-layout\fR]
+[\fB\-f\fR\ \fIhost_file\fR]
 [\fB\-x\fR]
 [\fB\-p\fR]
 [\fB\-P\fR]
@@ -28,13 +29,17 @@ multiplex/broadcast commands to all split panes / servers (see -a).
 .PP
 Its arguments are as follows:
 .TP 8n
-\fB\-s\fR
+\fB\-s\fR \fB\-session-name\fR
 Specify a name for the tmux session. It defaults to 'hostmux' which means that
 you can have only one hostmux session at a time if you don't specify unique
 names for your sessions
 .TP 8n
-\fB\-l\fR
+\fB\-l\fR \fB\-tmux-layout\fR
 Specify a valid tmux layout e.g. even-horizontal, tiled, etc. It defaults to
+.TP 8n
+\fB\-f\fR \fIhostfile\fR
+Specify a file which contains a newline separated list of [user@]host names. The
+hosts from the file will be merged with the hosts provided as optional arguments
 .TP 8n
 \fB\-x\fR
 Close the pane and/or session automatically when the ssh session
@@ -75,4 +80,3 @@ The \fBhostmux\fR utility exits\~0 on success, and\~>0 if an error occurs.
 was written by
 John-Paul Bader (hukl),
 \fIcontact@smyck.org\fR.
-.sp
