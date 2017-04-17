@@ -9,6 +9,7 @@ _arguments -C \
   '*-p[Set pane title to ssh hostname]' \
   '*-P[Set remote prompt to ssh hostname]' \
   '*-a[Sync panes]' \
+  '*-f[Use hostnames from file]:host file:_files'\
   '*:destinations:->destinations' \
 && ret=0
 
