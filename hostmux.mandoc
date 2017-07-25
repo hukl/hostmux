@@ -10,6 +10,7 @@
 .Op Fl s Ar session-name
 .Op Fl l Ar tmux-layout
 .Op Fl f Ar host_file
+.Op Fl C Ar remote-command
 .Op Fl x
 .Op Fl p
 .Op Fl P
@@ -37,6 +38,8 @@ Specify a valid tmux layout e.g. even-horizontal, tiled, etc. It defaults to
 .It Fl f Ar hostfile
 Specify a file which contains a newline separated list of [user@]host names. The
 hosts from the file will be merged with the hosts provided as optional arguments
+.It Fl C Ar remote-command
+Specify a command that should be run on all the machines prior to opening a shell
 .It Fl x
 Close the pane and/or session automatically when the ssh session
 exits successfully
