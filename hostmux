@@ -11,8 +11,6 @@ SYNC_PANES=false
 
 # Get optional user settings
 while getopts C:s:l:f:hxpPa opt; do
-    echo $opt
-    echo $OPTARG
     case $opt in
     s)     SESSION_NAME=$OPTARG
            ;;
@@ -94,8 +92,8 @@ fi
 # to the script
 for host in $HOSTS
 do
-    if [ ! -z $REMOTE_COMMAND ]; then
-        tmux send-keys -t $PANE_INDEX " ssh $host ${REMOTE_COMMAND} $CLOSE && " C-m
+    if [ ! -z "${REMOTE_COMMAND}" ]; then
+        tmux send-keys -t $PANE_INDEX " ssh $host -C \"${REMOTE_COMMAND}\" && " C-m
     fi
     tmux send-keys -t $PANE_INDEX " ssh $host $CLOSE" C-m
     if $SET_PROMPT; then
