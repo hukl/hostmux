@@ -8,6 +8,7 @@ _arguments -C \
   '*-x[Auto close pane]' \
   '*-p[Set pane title to ssh hostname]' \
   '*-P[Set remote prompt to ssh hostname]' \
+  '*-C[Set command to run on all machines prior to opening a shell ]' \
   '*-a[Sync panes]' \
   '*:destinations:->destinations' \
 && ret=0

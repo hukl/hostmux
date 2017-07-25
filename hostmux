@@ -1,6 +1,6 @@
 #!/bin/sh
 
-USAGE="hostmux -h | [-xpPa] [-l <tmux layout>] [-s <session name>] [-f <host_file>] host1 [host2 ...]"
+USAGE="hostmux -h | [-xpPa] [-l <tmux layout>] [-s <session name>] [-f <host_file>] [-C <remote command>] host1 [host2 ...]"
 
 SESSION_NAME=hostmux
 LAYOUT=even-vertical
@@ -10,7 +10,7 @@ SET_PROMPT=false
 SYNC_PANES=false
 
 # Get optional user settings
-while getopts s:l:f:hxpPa opt; do
+while getopts C:s:l:f:hxpPa opt; do
     case $opt in
     s)     SESSION_NAME=$OPTARG
            ;;
@@ -26,6 +26,8 @@ while getopts s:l:f:hxpPa opt; do
            ;;
     f)     HOSTS_FILE=$OPTARG
            ;;
+    C)     REMOTE_COMMAND=$OPTARG
+           ;;
     h)     echo $USAGE
            exit 0
            ;;
@@ -34,6 +36,7 @@ while getopts s:l:f:hxpPa opt; do
            exit 1
            ;;
 esac done
+
 shift $((OPTIND - 1))
 
 NUMBER_OF_HOSTS=0
@@ -89,6 +92,9 @@ fi
 # to the script
 for host in $HOSTS
 do
+    if [ ! -z "${REMOTE_COMMAND}" ]; then
+        tmux send-keys -t $PANE_INDEX " ssh $host -C \"${REMOTE_COMMAND}\" && " C-m
+    fi
     tmux send-keys -t $PANE_INDEX " ssh $host $CLOSE" C-m
     if $SET_PROMPT; then
         tmux send-keys -t $PANE_INDEX " export PS1=\"[$host]$ \"" C-m

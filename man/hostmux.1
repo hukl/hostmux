@@ -11,6 +11,7 @@
 [\fB\-s\fR\ \fIsession-name\fR]
 [\fB\-l\fR\ \fItmux-layout\fR]
 [\fB\-f\fR\ \fIhost_file\fR]
+[\fB\-C\fR\ \fIremote-command\fR]
 [\fB\-x\fR]
 [\fB\-p\fR]
 [\fB\-P\fR]
@@ -40,6 +41,9 @@ Specify a valid tmux layout e.g. even-horizontal, tiled, etc. It defaults to
 \fB\-f\fR \fIhostfile\fR
 Specify a file which contains a newline separated list of [user@]host names. The
 hosts from the file will be merged with the hosts provided as optional arguments
+.TP 8n
+\fB\-C\fR \fIremote-command\fR
+Specify a command that should be run on all the machines prior to opening a shell
 .TP 8n
 \fB\-x\fR
 Close the pane and/or session automatically when the ssh session
