@@ -10,6 +10,8 @@
 .Op Fl s Ar session-name
 .Op Fl l Ar tmux-layout
 .Op Fl f Ar host_file
+.Op Fl c Ar ssh command
+.Op Fl o Ar ssh option
 .Op Fl x
 .Op Fl p
 .Op Fl P
@@ -50,6 +52,12 @@ Identify panes by setting the remote prompt $PS1 to "[<hostname>]$ " after
 login
 .It Fl a
 Synchronize all panes, i.e. type commands simultaneously in all panes
+.It Fl c
+Specify the ssh command. It allows to use a specific wrapper.
+It defaults to "ssh"
+.It Fl o
+Specify ssh options to play at connection such as a user (-l)
+or a connexion port (-p), etc
 .It Fl h
 Display usage information
 .It Ar host

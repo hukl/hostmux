@@ -19,8 +19,9 @@ NAME
        panes
 
 SYNOPSIS
-       hostmux [-h] | [-s session-name] [-l tmux-layout] [-f host_file] [-x]
-               [-p] [-P] [-a] host1 [host2 ...]
+       hostmux [-h] | [-s session-name] [-l tmux-layout] [-c ssh command]
+               [-o ssh options] [-f host_file] [-x] [-p] [-P]
+               [-a] host1 [host2 ...]
 
 DESCRIPTION
        Call hostmux followed by a list of hosts you want to connect to via
@@ -58,6 +59,12 @@ DESCRIPTION
 
        -a      Synchronize all panes, i.e. type commands simultaneously in all
                panes
+
+       -c      Specify the ssh command. It allows to use a specific wrapper.
+               It defaults to "ssh"
+
+       -o      Specify ssh options to play at connection such as a user (-l)
+               or a connexion port (-p), etc
 
        -h      Display usage information
 
