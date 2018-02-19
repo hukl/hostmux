@@ -11,6 +11,8 @@
 [\fB\-s\fR\ \fIsession-name\fR]
 [\fB\-l\fR\ \fItmux-layout\fR]
 [\fB\-f\fR\ \fIhost_file\fR]
+[\fB\-c\fR\ \fIssh\ command\fR]
+[\fB\-o\fR\ \fIssh\ option\fR]
 [\fB\-x\fR]
 [\fB\-p\fR]
 [\fB\-P\fR]
@@ -57,6 +59,14 @@ login
 .TP 8n
 \fB\-a\fR
 Synchronize all panes, i.e. type commands simultaneously in all panes
+.TP 8n
+\fB\-c\fR
+Specify the ssh command. It allows to use a specific wrapper.
+It defaults to "ssh"
+.TP 8n
+\fB\-o\fR
+Specify ssh options to play at connection such as a user (-l)
+or a connexion port (-p), etc
 .TP 8n
 \fB\-h\fR
 Display usage information
