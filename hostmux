@@ -60,7 +60,7 @@ then
     do
         HOSTS="$HOSTS$line "
         NUMBER_OF_HOSTS=$(($NUMBER_OF_HOSTS+1))
-    done < hf
+    done < $HOSTS_FILE
 fi
 
 echo $HOSTS
