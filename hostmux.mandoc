@@ -53,18 +53,16 @@ login
 .It Fl a
 Synchronize all panes, i.e. type commands simultaneously in all panes
 .It Fl c
-Specify the ssh command. It allows to use a specific wrapper.
-It defaults to "ssh"
+Specify the (wrapper) ssh command. It defaults to "ssh"
 .It Fl o
-Specify ssh options to play at connection such as a user (-l)
-or a connexion port (-p), etc
+Specify additional ssh options such as -vvvv, -i or -p
 .It Fl h
 Display usage information
 .It Ar host
 Specify a space separated list of one or more user@hostname ssh targets. This
 is what you would pass to the ssh command when you are connecting
-to a host. Currently there is no support for passing additional flags
-to ssh. If you do need them, add them to your ~/.ssh/config
+to a host. You can pass additional flags to ssh either with the -o option or
+by adding them to your ~/.ssh/config
 .El
 .Sh SEE ALSO
 .Bl -tag -width Ds

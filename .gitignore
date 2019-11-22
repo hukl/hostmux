@@ -1,2 +1,4 @@
 *.bak
 *.swp
+.DS_Store
+tags
