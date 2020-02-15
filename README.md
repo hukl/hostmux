@@ -6,6 +6,10 @@ synchronize-pane feature of tmux, commands can be easily
 broadcasted/multiplexed. This is a light weight replacement for tools like
 csshX on OS X.
 
+## Demo
+
+![](https://smyck.net/blogimages/hostmux.gif)
+
 ## Usage
 
 <!-- read manpage in vim: ":r!MANWIDTH=79 man man/hostmux.1" -->
