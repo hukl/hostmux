@@ -1,4 +1,6 @@
 #!/bin/sh
+# Author: hukl
+# Repo: https://github.com/hukl/hostmux
 
 USAGE="hostmux -h | [-xpPa] [-c <ssh command>] [-o <ssh options>] [-l <tmux layout>] [-s <session name>] [-f <host_file>] host1 [host2 ...]"
 
