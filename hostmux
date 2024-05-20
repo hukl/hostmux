@@ -1,6 +1,8 @@
 #!/bin/sh
 # Author: hukl
 # Repo: https://github.com/hukl/hostmux
+# shellcheck disable=SC2162
+# we can disable SC2162 here, we want to allow backslashes in the host file
 
 USAGE="hostmux -h | [-xpPa] [-c <ssh command>] [-o <ssh options>] [-l <tmux layout>] [-s <session name>] [-f <host_file>] host1 [host2 ...]"
 
@@ -16,9 +18,9 @@ SSH_OPTS=
 # Get optional user settings
 while getopts s:l:f:c:o:hxpPa opt; do
     case $opt in
-    s)     SESSION_NAME=$OPTARG
+    s)     SESSION_NAME="$OPTARG"
            ;;
-    l)     LAYOUT=$OPTARG
+    l)     LAYOUT="$OPTARG"
            ;;
     x)     CLOSE=" && exit"
            ;;
@@ -28,17 +30,17 @@ while getopts s:l:f:c:o:hxpPa opt; do
            ;;
     a)     SYNC_PANES=true
            ;;
-    c)     SSH_CMD=$OPTARG
+    c)     SSH_CMD="$OPTARG"
            ;;
-    o)     SSH_OPTS=$OPTARG
+    o)     SSH_OPTS="$OPTARG"
            ;;
-    f)     HOSTS_FILE=$OPTARG
+    f)     HOSTS_FILE="$OPTARG"
            ;;
-    h)     echo $USAGE
+    h)     echo "$USAGE"
            exit 0
            ;;
     '?')   echo "$0: invalid option -$OPTARG" >&2
-           echo $USAGE >&2
+           echo "$USAGE" >&2
            exit 1
            ;;
 esac done
@@ -48,10 +50,10 @@ NUMBER_OF_HOSTS=0
 NUMBER_OF_HOST_ARGS=$#
 HOSTS=""
 
-while [ $NUMBER_OF_HOSTS -lt $NUMBER_OF_HOST_ARGS ]
+while [ "$NUMBER_OF_HOSTS" -lt "$NUMBER_OF_HOST_ARGS" ]
 do
     HOSTS="$HOSTS$1 "
-    NUMBER_OF_HOSTS=$(($NUMBER_OF_HOSTS+1))
+    NUMBER_OF_HOSTS=$((NUMBER_OF_HOSTS+1))
     shift
 done
 
@@ -61,15 +63,15 @@ then
     while read line
     do
         HOSTS="$HOSTS$line "
-        NUMBER_OF_HOSTS=$(($NUMBER_OF_HOSTS+1))
-    done < $HOSTS_FILE
+        NUMBER_OF_HOSTS=$((NUMBER_OF_HOSTS+1))
+    done < "$HOSTS_FILE"
 fi
 
-echo $HOSTS
-echo $NUMBER_OF_HOSTS
+echo "$HOSTS"
+echo "$NUMBER_OF_HOSTS"
 
 # Initialize Session
-tmux -2 new-session -d -s $SESSION_NAME
+tmux -2 new-session -d -s "$SESSION_NAME"
 
 # Split as many times as we have hosts and reset
 # the layout each time for even distribution
@@ -77,8 +79,8 @@ LOOP_INDEX=1
 
 while [ $LOOP_INDEX -lt $NUMBER_OF_HOSTS ]; do
     tmux split-window -h -d
-    tmux select-layout $LAYOUT
-    LOOP_INDEX=$(($LOOP_INDEX+1))
+    tmux select-layout "$LAYOUT"
+    LOOP_INDEX=$((LOOP_INDEX+1))
 done
 
 # Check what pane-base-index is configured and use it for addressing
@@ -97,14 +99,14 @@ fi
 # to the script
 for host in $HOSTS
 do
-    tmux send-keys -t $PANE_INDEX "$SSH_CMD $SSH_OPTS $host $CLOSE" C-m
+    tmux send-keys -t "$PANE_INDEX" "$SSH_CMD $SSH_OPTS $host $CLOSE" C-m
     if $SET_PROMPT; then
-        tmux send-keys -t $PANE_INDEX " export PS1=\"[$host]$ \"" C-m
+        tmux send-keys -t "$PANE_INDEX" " export PS1=\"[$host]$ \"" C-m
     fi
     if $SET_PANE_TITLE; then
-        tmux send-keys -t $PANE_INDEX " unset PROMPT_COMMAND; printf '\033]2;$host\007'" C-m
+        tmux send-keys -t "$PANE_INDEX" " unset PROMPT_COMMAND; printf '\033]2;$host\007'" C-m
     fi
-    PANE_INDEX=$(($PANE_INDEX+1))
+    PANE_INDEX=$((PANE_INDEX+1))
 done
 
 if $SYNC_PANES; then
@@ -112,4 +114,4 @@ if $SYNC_PANES; then
 fi
 
 # Attach to the session
-tmux -2 attach-session -t $SESSION_NAME
+tmux -2 attach-session -t "$SESSION_NAME"
